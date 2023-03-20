@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <script>
+    //    const Person=(name,age)=>{
+    //     return {
+    //         name,
+    //         age,
+    //         sayHello:function (){
+    //             console.log(`Hi, my name is ${this.name}`)
+    //         }
+    //     }
+    //    }
+    //    const peter=Person('peter',59)
+    //    peter.sayHello()
+
+    //    function Animal(name,age){
+    //         this.name=name;
+    //         this.age=age;
+    //         this.sayHello=function(){
+    //             console.log(`Hi, my name is ${this.name}`)
+    //         }
+    //    }
+    //    const anna=new Animal('Anna',5)
+    //    anna.sayHello()
+
+    //    class Reptile {
+    //         constructor(name,age){
+    //             this.name=name
+    //             this.age=age
+    //         }
+    //         sayHello(){
+    //             console.log(`Hi, my name is ${this.name}`)
+    //         }
+    //    }
+
+    //    const donna=new Reptile('donna',5)
+    //    donna.sayHello()
+    
+    // Object构造函数创建对象
+    let mlt= new Object();
+    mlt.meat=['鱼','毛肚','午餐肉'];
+    mlt.veggie=['西芹','金针菇'];
+    mlt.ingredient=['辣椒','菜油','老干妈']
+
+    mlt.effect=function(){
+        return (this.ingredient[0]+'有助于美容养颜')
+    }
+    // console.log(mlt.effect())
+
+    //使用对象字面量来创建对象,此法等同于上面的方法
+    let mlt1={
+        meat:['鱼','毛肚','午餐肉'],
+        veggie:['西芹','金针菇'],
+        ingredient:['辣椒','菜油','老干妈'],
+        effect1(){return (`${this.ingredient[0]}有助于延年益寿`)},
+        effect:function(){return (this.ingredient[0]+'有助于美容养颜')}
+    }
+    console.log(mlt1.effect())
+    console.log(mlt1.effect1())
+
+
+    //通过函数，工厂模式创建对象
+    function mlt2(meat,veggie,ingredient){
+        let obj={}
+        obj.meat=meat;
+        obj.veggie=veggie;
+        obj.ingredient=ingredient;
+        obj.effect=function(){
+            return (this.ingredient[0]+'有助于美容养颜')
+        }
+        return obj
+    }
+    let mlt2_1=mlt2(['鱼','毛肚','午餐肉'],['西芹','金针菇'],['辣椒','菜油','老干妈'])
+    console.log(mlt2_1)
+    console.log(mlt2_1 instanceof mlt2)
+
+
+
+    // 通过构造函数创建对象，注意以下几点：
+    // 1）通过this指代创建的对象本身
+    // 2）构造函数首字母大写
+    // 3）通过new 调用构造函数。new操作符会隐式创建对象，并且返回对象，并且会把对象和构造函数进行关联
+    // 通过构造函数创建的对象实际执行了下列步骤：
+    // 1)创建了一个新对象
+    // 2）将this指向了这个新对象
+    // 3）执行构造函数中的代码
+    // 4）最后返回这个对象（return Obj）
+    function Mlt3(meat,veggie,ingredient){
+        this.meat=meat;
+        this.veggie=veggie;
+        this.ingredient=ingredient;
+        this.effect=function(){
+            return (`${this.ingredient[0]} 有助于美容养颜`)
+        }
+    }
+     // 可以通过设置prototype来节省内存，如下
+     Mlt3.prototype={
+        effect1(){
+            return (`${this.ingredient[1]}+有助于延年益寿`)
+        }
+    }
+    let mlt3_1=new Mlt3(['鱼','毛肚','午餐肉'],['西芹','金针菇'],['辣椒','菜油','老干妈'])
+    console.log(mlt3_1 instanceof Mlt3)
+    console.log(mlt3_1.effect1())
+
+
+
+    // 利用原型去修改对象
+    let mlt4={
+        meat:['鱼','毛肚','午餐肉'],
+        veggie:['西芹','金针菇'],
+        ingredient:['辣椒','菜油','老干妈'],
+        effect(){}
+    }
+    let mlt4_1=Object.create(mlt4)
+    mlt4.veggie.push('葱花')
+    console.log(mlt4.veggie)
+    console.log(mlt4_1.veggie)
+
+
+
+    // 用class类创建对象,好处是用class创建的对象的方法自动保存在原型里，省内存
+    class Mlt5{
+        constructor(meat,veggie,ingredient){
+            this.meat=meat;
+            this.veggie=veggie;
+            this.ingredient=ingredient;
+            this.effect=function (){
+                return (`${this.ingredient[0]} 有助于美容养颜`)
+            }
+        }
+        run(){
+            return (`${this.meat}说我爱你`)
+        }
+    }
+    let mlt5_1=new Mlt5(['鱼','毛肚','午餐肉'],['西芹','金针菇'],['辣椒','菜油','老干妈'])
+    console.log(mlt5_1 instanceof Mlt5)
+    console.log(mlt5_1.effect())
+    console.log(mlt5_1.run())
+
+
+    class Mlt6{
+        constructor(a,b){
+            this.a=a
+            this.b=b
+           
+        }
+        state={
+            count:2
+        }
+        add(){
+            return this.a+this.b
+        }
+    }
+    let mlt6=new Mlt6(1,5)
+    console.log(mlt6.add())
+    
+
+
+    </script>
+</body>
+
+</html>
